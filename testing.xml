@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="UI Tests" thread-count="4">
+
+    <test name="Desktop testing" parallel="classes" thread-count="4">
+        <classes>
+            <class name="ge.tbc.testautomation.tests.ContentIntegrityTests"/>
+            <class name="ge.tbc.testautomation.tests.LocationsFiltersTests"/>
+            <class name="ge.tbc.testautomation.tests.LocationsMapTests"/>
+            <class name="ge.tbc.testautomation.tests.ProductDetailsTests"/>
+        </classes>
+    </test>
+
+    <test name="Mobile Testing" parallel="false">
+        <classes>
+            <class name="ge.tbc.testautomation.tests.MobileSpecificTests"/>
+        </classes>
+    </test>
+
+</suite>
+
+

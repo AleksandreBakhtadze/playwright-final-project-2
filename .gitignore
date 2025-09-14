@@ -1,0 +1,7 @@
+.idea
+target
+.mvn
+*.iml
+build
+allure-results
+user-data-dir
