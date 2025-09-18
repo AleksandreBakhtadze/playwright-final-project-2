@@ -2,6 +2,7 @@ package ge.tbc.testautomation.steps;
 
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Locator;
+import ge.tbc.testautomation.data.DatabaseSteps;
 import ge.tbc.testautomation.pages.ProductPage;
 import ge.tbc.testautomation.utils.HelperFunctions;
 import ge.tbc.testautomation.data.TBCContants;
@@ -13,6 +14,7 @@ public class ProductPageSteps {
     private final ProductPage productPage;
     private final HelperFunctions helperFunctions = new HelperFunctions();
     private final TBCContants tbcContants = new TBCContants();
+    private final DatabaseSteps databaseSteps = new DatabaseSteps();
     private Page externalPage;
 
     public ProductPageSteps(Page page) {

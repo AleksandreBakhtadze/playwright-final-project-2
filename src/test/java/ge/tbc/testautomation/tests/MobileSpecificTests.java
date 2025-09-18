@@ -24,10 +24,18 @@ public class MobileSpecificTests extends BaseTest {
             page.navigate(tbcContants.mainPageLink);
             mainPageSteps.setMobileResolution();
         }
-        mainPageSteps.selectAndOpenHamburgerMenu()
-                .getMegaMenuMainItems()
-                .validateSubNavigationItems()
-                .closeHamburgerMenu();
+        mainPageSteps.openHamburgerMenu()
+                .checkMegaMenuMainItems();
+        for(int i =0 ; i < mainPageSteps.getSubNavItemsCount();i++){
+            mainPageSteps.validateSubNavItems(i)
+                    .clickSubNavItem(i)
+                    .checkSubNavItemColor(i);
+            for(int j =0 ; j < mainPageSteps.getSubItemsCount();j++){
+                mainPageSteps.checkSubItemText(i,j)
+                        .clickSubItem(i,j);
+            }
+        }
+        mainPageSteps.closeHamburgerMenu();
     }
 
     @Test(priority = 3, dependsOnMethods = "setupMobileResolutionAndNavigateToPage")
@@ -35,12 +43,16 @@ public class MobileSpecificTests extends BaseTest {
         mainPageSteps.selectHeader()
                 .scrollIntoView()
                 .selectHeader()
-                .selectAndOpenHamburgerMenu()
+                .openHamburgerMenu()
                 .closeHamburgerMenu();
     }
 
     @Test(priority = 4, dependsOnMethods = "setupMobileResolutionAndNavigateToPage")
     public void validateKeyCTAButtonsVisibilityInMobileViewport() {
-        mainPageSteps.getAllKeyCTAButtons();
+        for (int i =0 ; i < mainPageSteps.getCTAButtonCount();i++){
+            mainPageSteps.checkCTABtnIsVisible(i)
+                    .checkCTABtnText(i)
+                    .checkCTABtnColor(i);
+        }
     }
 }

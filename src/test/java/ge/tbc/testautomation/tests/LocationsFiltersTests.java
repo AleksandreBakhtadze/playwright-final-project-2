@@ -15,25 +15,39 @@ public class LocationsFiltersTests extends BaseTest {
         mainPageSteps = new MainPageSteps(page);
         locationsPageSteps = new LocationsPageSteps(page);
 
-        mainPageSteps.openMainPage().acceptCookies()
+        mainPageSteps.openMainPage()
+                .acceptCookies()
+                .hoverOnNavigation()
                 .goToLocationsPage();
-        locationsPageSteps.validateMap()
-                .validateFilters();
+        locationsPageSteps.verifyMapVisible()
+                .verifyAllFilterDefault()
+                .verifyMapPinsAreVisible()
+                .verifyAtmFilter()
+                .verifyBranchesFilter()
+                .verifySubFilterAreVisible();
     }
 
     @Test(priority = 2, dependsOnMethods = "navigateToLocationsPageAndValidateDefaultTabsAndFilters")
     public void validateTabSwitchingBetweenATMAndBranches() {
         locationsPageSteps.clickAtmFilter()
-                .clickBranchFilter();
+                .checkAppliedFilter("ბანკომატი")
+                .clickBranchFilter()
+                .checkAppliedFilter("ფილიალი");
     }
 
     @Test(priority = 3, dependsOnMethods = "navigateToLocationsPageAndValidateDefaultTabsAndFilters")
     public void validateSubFilterFunctionalityFor24_7Locations() {
-        locationsPageSteps.clickSubFilter24_7();
+        locationsPageSteps.clickSubFilter24_7()
+                .checkIfHighlighted27_4()
+                .checkAppliedFilter("24/7")
+                .uncheck27_4filter();
     }
 
     @Test(priority = 4, dependsOnMethods = "navigateToLocationsPageAndValidateDefaultTabsAndFilters")
     public void validateSubFilterFunctionalityForOpenNowLocations() {
-        locationsPageSteps.clickSubFilterOpenNow();
+        locationsPageSteps.clickSubFilterOpenNow()
+                .checkIfHighlightedOpenNow()
+                .checkOpenNowFilter()
+                .uncheckOpenNowFilter();
     }
 }

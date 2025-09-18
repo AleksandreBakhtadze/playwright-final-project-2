@@ -24,7 +24,6 @@ public class CrossBrowser {
         } else if (browserType.equals("webkit")) {
             browser = playwright.webkit().launch(launchOptions);
         } else {
-            // Default to Chrome if unknown browser type
             browser = playwright.chromium().launch(launchOptions);
         }
 
@@ -39,7 +38,6 @@ public class CrossBrowser {
 
     @AfterTest
     public void afterTest() {
-        System.out.println("=== [AfterTest] Closing browser ===");
         if (page != null) {
             page.close();
         }

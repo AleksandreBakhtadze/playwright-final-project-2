@@ -49,7 +49,7 @@ public class TBCContants {
             "აიღე ახალი თიბისი ბარათი",
             "გაანაღდე გზავნილი მობაილბანკში და დასაჩუქრდი",
             "გახსენი მობაილბანკი",
-            "მოითხოვე 80 000 ლარამდე სეხი ონლაინ",
+            "მოითხოვე 80 000 ლარამდე სესხი ონლაინ",
             "გაანაღდე ფულადი გზავნილი მობაილბანკში",
             "გახსენი დეპოზიტი მობაილბანკში",
             "დაიბრუნე და გადაანაწილე",
@@ -59,12 +59,12 @@ public class TBCContants {
 
     public String[] mainNavigationItems = {"ჩემთვის","ჩემი ბიზნესისთვის","თიბისი"};
 
-    public String[] mainPageKeyCTAButtonTexts = {"ᲪᲘᲤᲠᲣᲚᲘ ᲑᲐᲜᲙᲘ","ᲕᲠᲪᲚᲐᲓ","ᲗᲘᲑᲘᲡᲘᲡ ᲨᲔᲡᲐᲮᲔᲑ","ᲕᲠᲪᲚᲐᲓ","ᲕᲠᲪᲚᲐᲓ","ᲕᲠᲪᲚᲐᲓ","ᲧᲕᲔᲚᲐ"};
+    public String[] mainPageKeyCTAButtonTexts = {"ციფრული ბანკი","ვრცლად","ვრცლად","ვრცლად","ვრცლად","ვრცლად","ყველა"};
 
     public String[][] subNavigationItems = {
-            {"სესხები","ბარათები","ანაბრები","ციფრული სერვისები","სხვა პროდუქტები",".*კონცეპტი.*ახალი თაობისთვის.*ემიგრანტებისთვის.*არარეზიდენტებისთვის.*"},
-            {"ფინანსირება","ციფრული სერვისები","ყოველდღიური ბანკინგი","ვაჭრობის ფინანსირება",".*თიბისი კაპიტალი.*საგადახდო სისტემები.*","ბიზნეს განათლება"},
-            {"განათლება",".*ბლოგები.*სიახლეები.*შიდა რეგულაციები.*ფინანსური ანგარიშგება.*"}
+            {"სესხები","ბარათები","ანაბრები","ციფრული სერვისები","სხვა პროდუქტები","არარეზიდენტებისთვის"},
+            {"ფინანსირება","ციფრული სერვისები","ყოველდღიური ბანკინგი","ვაჭრობის ფინანსირება","გადახდები","საგადახდო სისტემები","ბიზნეს განათლება"},
+            {"განათლება","ფინანსური ანგარიშგება"}
     };
 
     public HashMap<String, String[]> sectionCardsTitles = new HashMap<String, String[]>() {{
@@ -93,25 +93,25 @@ public class TBCContants {
 
     public HashMap<String, String[]> sectionCardsUrls = new HashMap<String, String[]>() {{
         put("მობაილბანკის უპირატესობები", new String[]{
-                "https://tbcbank.ge/ka/articles/auto-comfort",
-                "https://tbcbank.ge/ka/articles/instant-transfers",
-                "https://tbcbank.ge/ka/other-products/ganatsileba/transaction",
-                "https://tbcbank.ge/ka/articles/utility-payments",
+                "/ka/articles/auto-comfort",
+                "/ka/articles/instant-transfers",
+                "/ka/other-products/ganatsileba/transaction",
+                "/ka/articles/utility-payments",
                 "https://tbccapital.ge/ge/investment/main-page",
-                "https://tbcbank.ge/ka/articles/shipping-and-post"
+                "/ka/articles/shipping-and-post"
         });
 
         put("სხვადასხვა", new String[]{
-                "https://tbcbank.ge/ka/treasury-products",
-                "https://tbcbank.ge/ka/loans",
-                "https://tbcbank.ge/ka/atms&branches"
+                "/ka/treasury-products",
+                "/ka/loans",
+                "/ka/atms&branches"
         });
 
         put("ბლოგები", new String[]{
-                "https://tbcbank.ge/ka/blogs/QAlFGUWGM2EBXQv1wsWbG/17th-black-sea-jazz",
-                "https://tbcbank.ge/ka/blogs/4xWa7YStgYOYtS2SLnZ2GK/devoted-blitz-with-devoted-people",
-                "https://tbcbank.ge/ka/blogs/23NiNN571IcSRPSB3z8rFR/etsy-is-back",
-                "https://tbcbank.ge/ka/blogs/66se2Mm6PD8VM33W7UhqR/mewa-india-2025"
+                "/ka/blogs/QAlFGUWGM2EBXQv1wsWbG/17th-black-sea-jazz",
+                "/ka/blogs/4xWa7YStgYOYtS2SLnZ2GK/devoted-blitz-with-devoted-people",
+                "/ka/blogs/23NiNN571IcSRPSB3z8rFR/etsy-is-back",
+                "/ka/blogs/66se2Mm6PD8VM33W7UhqR/mewa-india-2025"
         });
     }};
 
@@ -128,4 +128,5 @@ public class TBCContants {
     public String commissionTabText = "გზავნილის გაგზავნის საკომისიო";
     public String convertTabText = "გზავნილის კონვერტაცია";
 
+    public String[] BtnTexts = {"ვრცლად","დეტალურად","გაიგე მეტი"};
 }

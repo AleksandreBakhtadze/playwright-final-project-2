@@ -15,22 +15,36 @@ public class LocationsMapTests extends BaseTest {
         mainPageSteps = new MainPageSteps(page);
         locationsPageSteps = new LocationsPageSteps(page);
 
-        mainPageSteps.openMainPage().acceptCookies()
+        mainPageSteps.openMainPage()
+                .acceptCookies()
+                .hoverOnNavigation()
                 .goToLocationsPage();
     }
 
     @Test(priority = 2, dependsOnMethods = "navigateToLocationsPageFromMainNavigation")
     public void validateLocationsMapLoadingAndDefaultState() {
-        locationsPageSteps.validateMap();
+        locationsPageSteps.verifyMapVisible()
+                .verifyAllFilterDefault()
+                .verifyMapPinsAreVisible();
     }
 
     @Test(priority = 3, dependsOnMethods = "navigateToLocationsPageFromMainNavigation")
     public void validateMapPanningFunctionalityInAllDirections() {
-        locationsPageSteps.mapMoveSides();
+        locationsPageSteps.clickOnMap();
+        int initialCount = locationsPageSteps.getPinsCount();
+        locationsPageSteps.moveLeft()
+                .moveRight()
+                .moveDown()
+                .moveUp()
+                .checkPins(initialCount);
     }
 
     @Test(priority = 4, dependsOnMethods = "navigateToLocationsPageFromMainNavigation")
     public void validateMapZoomInAndZoomOutControls() {
-        locationsPageSteps.tapZoomInAndZoomOut();
+        locationsPageSteps.clickOnMap();
+        int initialCount = locationsPageSteps.getPinsCount();
+        locationsPageSteps.zoomIn()
+                .zoomOut()
+                .checkPins(initialCount);
     }
 }

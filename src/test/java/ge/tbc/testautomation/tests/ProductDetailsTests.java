@@ -18,7 +18,7 @@ public class ProductDetailsTests extends BaseTest {
         mainPageSteps = new MainPageSteps(page);
         productPageSteps = new ProductPageSteps(page);
 
-        mainPageSteps.openMainPage().acceptCookies()
+        mainPageSteps.hoverOnNavigation().openMainPage().acceptCookies()
                 .goToProductsPage();
         productPageSteps.validateTitle(tbcContants.productTitle);
     }

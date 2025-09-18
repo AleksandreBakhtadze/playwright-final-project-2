@@ -51,4 +51,29 @@ public class MainPage {
     public Locator getCurrentSlide() {
         return slider.locator(".tbcx-pw-hero-slider-section__slide.ng-trigger-slideAnimation");
     }
+
+    public Locator getInfoSectionForH1(int index) {
+        return h1s.nth(index).locator("xpath=./ancestor::div[contains(@class, 'tbcx-pw-cta-section__info')]");
+    }
+
+    public Locator getButtonsWrapperForH1(int index) {
+        return getInfoSectionForH1(index).locator(".tbcx-pw-cta-section__info__buttons-wrapper");
+    }
+
+    public Locator getButtonForH1(int index) {
+        return getButtonsWrapperForH1(index).locator("button");
+    }
+
+    public Locator getSectionCards(int index) {
+        return sections.nth(index).locator(".tbcx-pw-carousel__slides__slide__card, .tbcx-pw-carousel__card");
+    }
+
+    public Locator getCardLink(int index, int i){
+        return getSectionCards(index).nth(i).locator("a");
+    }
+
+    public Locator getSliderBtn(Locator slider) {
+        return slider.locator("tbcx-pw-button a");
+    }
+
 }

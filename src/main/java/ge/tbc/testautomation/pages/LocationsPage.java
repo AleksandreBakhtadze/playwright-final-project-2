@@ -19,11 +19,14 @@ public class LocationsPage {
         this.map = page.locator("div[role='region'][aria-label='Map']");
         this.mapContainer = page.locator("div.map-container");
         this.mapPins = page.locator("gmp-advanced-marker");
-        this.allFilter = page.locator("button:has-text('ბანკომატები'):has([class*='tbcx-pw-tab-menu__item'])");
-        this.atmFilter = page.locator("button:has-text('ყველა'):has([class*='tbcx-pw-tab-menu__item'])");
-        this.branchesFilter = page.locator("button:has-text('ფილიალები'):has([class*='tbcx-pw-tab-menu__item'])");
+        this.allFilter = page.locator("button.tbcx-pw-tab-menu__item:has-text('ყველა')");
+        this.atmFilter = page.locator("button.tbcx-pw-tab-menu__item:has-text('ბანკომატები')");
+        this.branchesFilter = page.locator("button.tbcx-pw-tab-menu__item:has-text('ფილიალები')");
         this.subFilter27_4 = page.locator("label.tbcx-pw-chip:has-text('24/7')");
         this.subFilterOpenNow = page.locator("label.tbcx-pw-chip:has-text(' ღიაა ')");
         this.optionsList = page.locator("app-atm-branches-section-list-item");
+    }
+    public Locator getSpan(Locator filter){
+        return filter.locator("span");
     }
 }
