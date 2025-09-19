@@ -7,7 +7,12 @@ import ge.tbc.testautomation.data.TBCContants;
 import ge.tbc.testautomation.pages.MainPage;
 import ge.tbc.testautomation.pages.MobileMainPage;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
@@ -42,7 +47,7 @@ public class MobileMainSteps {
     public MobileMainSteps setMobileResolution() {
         page.setViewportSize(375, 667);
         page.waitForTimeout(3000);
-        captureScreenshot("step1_initial_mobile_layout.png", "საიტი ჩატვირთულია მობილურის Viewport-ით");
+        captureScreenshot("mobile_layout_initial", "საიტი ჩატვირთულია მობილურის Viewport-ით");
         return this;
     }
 
@@ -50,7 +55,7 @@ public class MobileMainSteps {
         assertThat(mobileMainPage.hamburgerMenuButton).isVisible();
         mobileMainPage.hamburgerMenuButton.click();
         page.waitForTimeout(1000);
-        captureScreenshot("step2_hamburger_menu_expanded.png", "ჰამბურგერ მენიუ გახსნილია და ოფციები ჩამოშლილი");
+        captureScreenshot("hamburger_menu_expanded", "ჰამბურგერ მენიუ გახსნილია და ოფციები ჩამოშლილი");
         return this;
     }
 
@@ -105,13 +110,13 @@ public class MobileMainSteps {
         assertThat(mobileMainPage.hamburgerMenuButton).isVisible();
         mobileMainPage.hamburgerMenuButton.click();
         page.waitForTimeout(1000);
-        captureScreenshot("step2_hamburger_menu_closed.png", "ჩამოშლილი ჰამბურგერ მენიუ აიკეცა");
+        captureScreenshot("hamburger_menu_closed", "ჩამოშლილი ჰამბურგერ მენიუ აიკეცა");
     }
 
     public MobileMainSteps selectHeader() {
         assertThat(mobileMainPage.header).isVisible();
         assertThat(mobileMainPage.header).hasCSS("position", "sticky");
-        captureScreenshot("step3_sticky_header.png", "sticky header სქროლვის შემდგომაც ჩანს");
+        captureScreenshot("sticky_header", "sticky header სქროლვის შემდგომაც ჩანს");
         return this;
     }
 
@@ -129,7 +134,7 @@ public class MobileMainSteps {
 
     public MobileMainSteps checkCTABtnIsVisible(int i){
         assertThat(mobileMainPage.keyCTAButtons.nth(i)).isVisible();
-        if(i==0)captureScreenshot("step4_cta_buttons.png", "CTA გამოკვეთილადჩანს ლურჯი ფერით");
+        if(i==0)captureScreenshot("cta_buttons", "CTA გამოკვეთილად ჩანს ლურჯი ფერით");
         return this;
     }
 
@@ -144,12 +149,23 @@ public class MobileMainSteps {
         return this;
     }
 
-    private void captureScreenshot(String fileName, String description) {
-        String screenshotPath = Paths.get("screenshots", fileName).toString();
-        page.screenshot(new Page.ScreenshotOptions()
-                .setPath(Paths.get(screenshotPath))
-                .setFullPage(false));
-        System.out.println("Screenshot saved: " + screenshotPath + " - " + description);
+    private void captureScreenshot(String fileNameBase, String description) {
+        try {
+            Path directory = Paths.get("backstop_data/bitmaps_test");
+            String timestamp = new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date());
+            Path subDirectory = Paths.get(directory.toString(), timestamp);
+            if (!Files.exists(subDirectory)) {
+                Files.createDirectories(subDirectory);
+            }
+            String screenshotPath = Paths.get(subDirectory.toString(), fileNameBase + ".png").toString();
+            page.screenshot(new Page.ScreenshotOptions()
+                    .setPath(Paths.get(screenshotPath))
+                    .setFullPage(false));
+            System.out.println("Screenshot saved: " + screenshotPath + " - " + description);
+        } catch (IOException e) {
+            System.err.println("Failed to capture screenshot: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 }
 
