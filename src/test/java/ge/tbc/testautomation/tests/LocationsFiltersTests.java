@@ -1,11 +1,12 @@
 package ge.tbc.testautomation.tests;
 
+import ge.tbc.testautomation.runners.CrossBrowser;
 import org.testng.annotations.Test;
 import ge.tbc.testautomation.runners.BaseTest;
 import ge.tbc.testautomation.steps.LocationsPageSteps;
 import ge.tbc.testautomation.steps.MainPageSteps;
 
-public class LocationsFiltersTests extends BaseTest {
+public class LocationsFiltersTests extends CrossBrowser {
 
     private MainPageSteps mainPageSteps;
     private LocationsPageSteps locationsPageSteps;

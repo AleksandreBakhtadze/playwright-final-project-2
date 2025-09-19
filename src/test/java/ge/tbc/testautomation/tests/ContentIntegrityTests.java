@@ -2,11 +2,14 @@ package ge.tbc.testautomation.tests;
 
 import ge.tbc.testautomation.data.DataSupplier;
 import ge.tbc.testautomation.data.TBCContants;
+import ge.tbc.testautomation.runners.CrossBrowser;
 import ge.tbc.testautomation.steps.MainPageSteps;
 import org.testng.annotations.Test;
 import ge.tbc.testautomation.runners.BaseTest;
 
-public class ContentIntegrityTests extends BaseTest {
+import java.sql.SQLException;
+
+public class ContentIntegrityTests extends CrossBrowser {
 
     private MainPageSteps mainPageSteps;
     private TBCContants tbcContants = new TBCContants();
@@ -33,7 +36,7 @@ public class ContentIntegrityTests extends BaseTest {
     }
 
     @Test(priority = 3, dataProvider = "sections", dataProviderClass = DataSupplier.class, dependsOnMethods = "navigateToMainPageAndValidatePageTitles")
-    public void validateSectionContentForDuplicateHeadingsAndTextBlocks(String sectionName, int index) {
+    public void validateSectionContentForDuplicateHeadingsAndTextBlocks(String sectionName, int index) throws SQLException {
         mainPageSteps.checkSectionName(sectionName,index);
         for(int i = 0 ;i < mainPageSteps.getCardsCount(index);i++){
             mainPageSteps.checkCardText(sectionName,i,index)

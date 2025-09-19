@@ -6,6 +6,11 @@ import ge.tbc.testautomation.data.DatabaseSteps;
 import ge.tbc.testautomation.pages.ProductPage;
 import ge.tbc.testautomation.utils.HelperFunctions;
 import ge.tbc.testautomation.data.TBCContants;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 import static org.testng.Assert.assertTrue;
 
@@ -72,7 +77,7 @@ public class ProductPageSteps {
 
     public ProductPageSteps selectCurrency(String currency){
         productPage.leftCurrencyDropdown.click();
-        productPage.currencyOptions.filter(new Locator.FilterOptions().setHasText(currency)).first().click();
+        productPage.currencyOptions.filter(new Locator.FilterOptions().setHasText(currency)).first().click(new Locator.ClickOptions().setForce(true));
         return this;
     }
 
@@ -153,17 +158,19 @@ public class ProductPageSteps {
         return this;
     }
 
-    public ProductPageSteps checkLoadedCards(String countryName){
-        // Then wait for real cards to appear size must be more than 7, 7 cards are default displayed
+    public ProductPageSteps checkLoadedCards(String countryName) throws SQLException {
         page.waitForTimeout(2000);
-        assertThat(productPage.loadedTransferCards).hasCount(tbcContants.loadedCardsCounts.get(countryName));
+        Integer expectedCount = databaseSteps.getExpectedCardCount(countryName);
+        assertThat(productPage.loadedTransferCards).hasCount(expectedCount);
         assertThat(productPage.loadedTransferCards.last()).isVisible();
         return this;
     }
 
-    public ProductPageSteps validateLoadedCardsData(String countryName){
+    public ProductPageSteps validateLoadedCardsData(String countryName) throws SQLException {
+        List<Map<String, Object>> commissions = databaseSteps.getCommissionsForCountry(countryName);
         for (int i = 7; i < productPage.loadedTransferCards.count(); i++) {
-            assertThat(productPage.loadedTransferCards.nth(i)).containsText(tbcContants.countriesCommissions.get(countryName)[i - 7]);
+            Map<String, Object> commission = commissions.get(i - 7); // Adjust index to match array offset
+            assertThat(productPage.loadedTransferCards.nth(i)).containsText(commission.get("commission_details").toString());
         }
         return this;
     }
@@ -193,9 +200,11 @@ public class ProductPageSteps {
         return this;
     }
 
-    public void productOtherInformation() {
-        for (int i = 0; i < tbcContants.transferSystems.length; i++) {
-            assertThat(productPage.loadedTransferCards.nth(i)).containsText(tbcContants.transferSystems[i]);
+    public void productOtherInformation() throws SQLException {
+        List<Map<String, Object>> transferSystems = databaseSteps.getTransferSystems();
+        for (int i = 0; i < transferSystems.size(); i++) {
+            String expectedText = transferSystems.get(i).get("system_name") + "\n" + "currency - " + transferSystems.get(i).get("currencies");
+            assertThat(productPage.loadedTransferCards.nth(i)).containsText(expectedText);
         }
     }
 }

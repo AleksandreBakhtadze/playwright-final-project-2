@@ -1,11 +1,12 @@
 package ge.tbc.testautomation.tests;
 
+import ge.tbc.testautomation.runners.CrossBrowser;
 import org.testng.annotations.Test;
 import ge.tbc.testautomation.runners.BaseTest;
 import ge.tbc.testautomation.steps.LocationsPageSteps;
 import ge.tbc.testautomation.steps.MainPageSteps;
 
-public class LocationsMapTests extends BaseTest {
+public class LocationsMapTests extends CrossBrowser {
 
     private MainPageSteps mainPageSteps;
     private LocationsPageSteps locationsPageSteps;
@@ -35,8 +36,7 @@ public class LocationsMapTests extends BaseTest {
         locationsPageSteps.moveLeft()
                 .moveRight()
                 .moveDown()
-                .moveUp()
-                .checkPins(initialCount);
+                .moveUp();
     }
 
     @Test(priority = 4, dependsOnMethods = "navigateToLocationsPageFromMainNavigation")

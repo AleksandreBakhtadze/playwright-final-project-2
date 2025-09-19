@@ -16,7 +16,7 @@ public class BaseTest {
         BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions()
                 .setHeadless(false);
 
-        browser = playwright.chromium().launch(launchOptions);
+        browser = playwright.firefox().launch(launchOptions);
 
         Browser.NewContextOptions contextOptions = new Browser.NewContextOptions()
                 .setViewportSize(1920, 1080);

@@ -2,9 +2,15 @@ package ge.tbc.testautomation.steps;
 
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Locator;
+import ge.tbc.testautomation.data.DatabaseSteps;
 import ge.tbc.testautomation.pages.MainPage;
 import ge.tbc.testautomation.data.TBCContants;
 import org.testng.reporters.jq.Main;
+
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.sql.SQLException;
+import java.util.List;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 import static org.testng.AssertJUnit.assertTrue;
@@ -14,6 +20,7 @@ public class MainPageSteps {
     private final Page page;
     private final MainPage mainPage;
     private final TBCContants tbcContants = new TBCContants();
+    private final DatabaseSteps databaseSteps = new DatabaseSteps();
 
     public MainPageSteps(Page page) {
         this.page = page;
@@ -97,7 +104,7 @@ public class MainPageSteps {
 
     public MainPageSteps checkCTABtns(int i) {
         assertThat(mainPage.getButtonForH1(i)).isVisible();
-        assertThat(mainPage.getButtonForH1(i)).hasText(tbcContants.BtnTexts[1]);
+        assertThat(mainPage.getButtonForH1(i)).hasText(tbcContants.BtnTexts[0]);
         assertThat(mainPage.getButtonForH1(i)).hasCSS("background-color", java.util.regex.Pattern.compile("rgba?\\(0,\\s*173,\\s*238.*\\)|rgb\\(0,\\s*173,\\s*238\\)"));
         return this;
     }
@@ -111,9 +118,10 @@ public class MainPageSteps {
         return mainPage.getSectionCards(index).count();
     }
 
-    public MainPageSteps checkCardText(String sectionName, int i, int index){
-        if (tbcContants.sectionCardsTitles.get(sectionName) != null && i < tbcContants.sectionCardsTitles.get(sectionName).length) {
-            assertThat(mainPage.getSectionCards(index).nth(i)).containsText(tbcContants.sectionCardsTitles.get(sectionName)[i]);
+    public MainPageSteps checkCardText(String sectionName, int i, int index) throws SQLException {
+        List<String> cardTitles = databaseSteps.getSectionCardTitles(sectionName);
+        if (cardTitles != null && i < cardTitles.size()) {
+            assertThat(mainPage.getSectionCards(index).nth(i)).containsText(cardTitles.get(i));
         }
         return this;
     }
@@ -164,106 +172,6 @@ public class MainPageSteps {
     public MainPageSteps reloadCards(int index){
         page.waitForTimeout(1000);
         assertThat(mainPage.sections.nth(index)).isVisible();
-        return this;
-    }
-
-    public MainPageSteps setMobileResolution() {
-        page.setViewportSize(375, 667);
-        page.waitForTimeout(3000);
-        return this;
-    }
-
-    public MainPageSteps openHamburgerMenu() {
-        assertThat(mainPage.hamburgerMenuButton).isVisible();
-        mainPage.hamburgerMenuButton.click();
-        page.waitForTimeout(1000);
-        return this;
-    }
-
-    public MainPageSteps checkMegaMenuMainItems() {
-        for (int i = 0; i < tbcContants.mainNavigationItems.length; i++) {
-            assertThat(mainPage.megaMenuMainNavigationItems.nth(i)).isVisible();
-            assertThat(mainPage.megaMenuMainNavigationItems.nth(i)).containsText(tbcContants.mainNavigationItems[i]);
-        }
-        return this;
-    }
-
-    public int getSubNavItemsCount() {
-        return mainPage.megaMenuMainNavigationItems.count();
-    }
-
-    public MainPageSteps validateSubNavItems(int i) {
-        assertThat(mainPage.megaMenuMainNavigationItems.nth(i)).isVisible();
-        assertThat(mainPage.megaMenuMainNavigationItems.nth(i)).containsText(tbcContants.mainNavigationItems[i]);
-        return this;
-    }
-
-    public MainPageSteps clickSubNavItem(int i){
-        mainPage.megaMenuMainNavigationItems.nth(i).click(new Locator.ClickOptions().setForce(true));
-        return this;
-    }
-
-    public MainPageSteps checkSubNavItemColor(int i){
-        assertThat(mainPage.megaMenuMainNavigationItems.nth(i))
-                .hasCSS("color", java.util.regex.Pattern.compile("rgba?\\(0,\\s*173,\\s*238.*\\)|rgb\\(0,\\s*173,\\s*238\\)"));
-        page.waitForTimeout(700);
-        return this;
-    }
-
-    public int getSubItemsCount() {
-        return mainPage.subNavigationItems.count();
-    }
-
-    public MainPageSteps checkSubItemText(int i,int j){
-        assertThat(mainPage.subNavigationItems.nth(j))
-                .containsText(tbcContants.subNavigationItems[i][j]);
-        return this;
-    }
-
-    public MainPageSteps clickSubItem(int i,int j){
-        if (mainPage.subNavigationItems.nth(j).textContent().contains("chevron-down-outlined")) {
-            mainPage.subNavigationItems.nth(j).click();
-        }
-        return this;
-    }
-
-    public void closeHamburgerMenu() {
-        assertThat(mainPage.hamburgerMenuButton).isVisible();
-        mainPage.hamburgerMenuButton.click();
-        page.waitForTimeout(1000);
-    }
-
-    public MainPageSteps selectHeader() {
-        assertThat(mainPage.header).isVisible();
-        assertThat(mainPage.header).hasCSS("position", "sticky");
-        return this;
-    }
-
-    public MainPageSteps scrollIntoView() {
-        page.evaluate("window.scrollBy(0, 1500)");
-        page.waitForTimeout(3000);
-        page.evaluate("window.scrollBy(0, -500)");
-        page.waitForTimeout(3000);
-        return this;
-    }
-
-    public int getCTAButtonCount() {
-        return mainPage.keyCTAButtons.count();
-    }
-
-    public MainPageSteps checkCTABtnIsVisible(int i){
-        assertThat(mainPage.keyCTAButtons.nth(i)).isVisible();
-        return this;
-    }
-
-    public MainPageSteps checkCTABtnText(int i){
-        assertThat(mainPage.keyCTAButtons.nth(i)).containsText(tbcContants.mainPageKeyCTAButtonTexts[i]);
-        return this;
-    }
-
-    public MainPageSteps checkCTABtnColor(int i){
-        assertThat(mainPage.keyCTAButtons.nth(i))
-                .hasCSS("color", java.util.regex.Pattern.compile("rgba?\\(0,\\s*0,\\s*0.*\\)|rgb\\(0,\\s*0,\\s*0\\)"));
         return this;
     }
 }

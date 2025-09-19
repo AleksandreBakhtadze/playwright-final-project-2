@@ -2,12 +2,15 @@ package ge.tbc.testautomation.tests;
 
 import ge.tbc.testautomation.data.DataSupplier;
 import ge.tbc.testautomation.data.TBCContants;
+import ge.tbc.testautomation.runners.CrossBrowser;
 import org.testng.annotations.Test;
 import ge.tbc.testautomation.runners.BaseTest;
 import ge.tbc.testautomation.steps.MainPageSteps;
 import ge.tbc.testautomation.steps.ProductPageSteps;
 
-public class ProductDetailsTests extends BaseTest {
+import java.sql.SQLException;
+
+public class ProductDetailsTests extends CrossBrowser {
 
     private MainPageSteps mainPageSteps;
     private ProductPageSteps productPageSteps;
@@ -18,7 +21,9 @@ public class ProductDetailsTests extends BaseTest {
         mainPageSteps = new MainPageSteps(page);
         productPageSteps = new ProductPageSteps(page);
 
-        mainPageSteps.hoverOnNavigation().openMainPage().acceptCookies()
+        mainPageSteps.openMainPage().
+                acceptCookies()
+                .hoverOnNavigation()
                 .goToProductsPage();
         productPageSteps.validateTitle(tbcContants.productTitle);
     }
@@ -27,7 +32,7 @@ public class ProductDetailsTests extends BaseTest {
     public void validatePrimaryCTAButtonsPresence() {
         productPageSteps.checkCTAButtonsColours()
                 .checkCTAButtonsAviability()
-                .checkCTAButtonsText("დეტალურად")
+                .checkCTAButtonsText(tbcContants.BtnTexts[1])
                 .clickOnSecondCTAButton()
                 .checkPopupDetails()
                 .closePopUpDetails();
@@ -54,7 +59,7 @@ public class ProductDetailsTests extends BaseTest {
     }
 
     @Test(priority = 5, dataProvider = "countries", dataProviderClass = DataSupplier.class, dependsOnMethods = "navigateToProductPageAndValidateTitle")
-    public void validateCommissionCalculationByCountry(String country) {
+    public void validateCommissionCalculationByCountry(String country) throws SQLException {
         productPageSteps.selectUSDAsTransferCurrency()
                 .fillTransferAmountField()
                 .selectCountryToTransfer(country)
@@ -72,7 +77,7 @@ public class ProductDetailsTests extends BaseTest {
     }
 
     @Test(priority = 7, dependsOnMethods = "navigateToProductPageAndValidateTitle")
-    public void verifyProductInformationCompleteness() {
+    public void verifyProductInformationCompleteness() throws SQLException {
         productPageSteps.productOtherInformation();
     }
 }

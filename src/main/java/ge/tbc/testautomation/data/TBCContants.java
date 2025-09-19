@@ -13,38 +13,6 @@ public class TBCContants {
 
     public String[] productSecondaryTitles = {"სამომხმარებლო სესხი","იპოთეკური სესხი","განვადება"};
 
-    public String[] transferSystems = {"FastTransfer\n" + "currency - EUR/GEL/USD",
-            "IntelExpress\n" + "currency - EUR/GBP/GEL/USD",
-            "MoneyGram\n" + "currency - EUR/GEL/USD",
-            "Ria\n" + "currency - EUR/GEL/USD",
-            "RicoGram\n" + "currency - EUR/USD",
-            "WesternUnion\n" + "currency - EUR/GEL/USD",
-            "ZolotayaKorona\n" + "currency - EUR/GEL/RUB/USD"};
-
-    public HashMap<String, String[]> countriesCommissions = new HashMap<String, String[]>() {{
-        put("საქართველო", new String[] {
-                "WesternUnion\n"+"საკომისიო 1.8 $",
-                "FastTransfer\n"+"საკომისიო 5 $",
-                "MoneyGram\n"+"საკომისიო 2 $",
-                "IntelExpress\n"+"საკომისიო 1 $"
-        });
-
-        put("აშშ", new String[] {
-                "Ria\n"+"საკომისიო 4 $",
-                "WesternUnion\n"+"საკომისიო 4 $",
-                "MoneyGram\n"+"საკომისიო 2.99 $",
-                "IntelExpress\n"+"საკომისიო 3 $"
-        });
-
-        put("კანადა", new String[] {
-                "Ria\n"+"საკომისიო 4 $",
-                "WesternUnion\n"+"საკომისიო 4 $",
-                "MoneyGram\n"+"საკომისიო 2.99 $"
-        });
-    }};
-
-
-
     public String[] mainPageSlides = {"თიბისი კონცეპტის სამოგზაურო ბარათი",
             "აიღე ახალი თიბისი ბარათი",
             "გაანაღდე გზავნილი მობაილბანკში და დასაჩუქრდი",
@@ -66,30 +34,6 @@ public class TBCContants {
             {"ფინანსირება","ციფრული სერვისები","ყოველდღიური ბანკინგი","ვაჭრობის ფინანსირება","გადახდები","საგადახდო სისტემები","ბიზნეს განათლება"},
             {"განათლება","ფინანსური ანგარიშგება"}
     };
-
-    public HashMap<String, String[]> sectionCardsTitles = new HashMap<String, String[]>() {{
-        put("მობაილბანკის უპირატესობები", new String[]{
-                "ავტო კომფორტი",
-                "მომენტალური გადარიცხვა",
-                "ტრანზაქციის განაწილება",
-                "კომუნალური გადახდები",
-                "ინვესტიციები",
-                "ამანათები და ფოსტა"
-        });
-
-        put("სხვადასხვა", new String[]{
-                "გაიგე ვალუტის მიმდინარე კურსი",
-                "გამოთვალე სესხი",
-                "იპოვე ფილიალები და ბანკომატები"
-        });
-
-        put("ბლოგები", new String[]{
-                "ვის მოუსმენთ შავი ზღვის მე-17 ჯაზფესტივალზე",
-                "DEVOTED ბლიცი, DEVOTED ადამიანებთან",
-                "Etsy საქართველოს ბაზარზე დაბრუნდა — რა უნდა იცოდეთ?",
-                "8 კომპანიამ ინდოეთში საერთაშორისო გამოფენაში მიიღო მონაწილეობა"
-        });
-    }};
 
     public HashMap<String, String[]> sectionCardsUrls = new HashMap<String, String[]>() {{
         put("მობაილბანკის უპირატესობები", new String[]{
@@ -115,18 +59,8 @@ public class TBCContants {
         });
     }};
 
-
-    public HashMap<String, Integer> loadedCardsCounts = new HashMap<String, Integer>() {{
-        put("საქართველო", 11);
-
-        put("აშშ", 11);
-
-        put("კანადა", 10);
-    }};
-
     public String externalPageLink = "https://tbconline.ge/tbcrd/login";
     public String commissionTabText = "გზავნილის გაგზავნის საკომისიო";
     public String convertTabText = "გზავნილის კონვერტაცია";
-
     public String[] BtnTexts = {"ვრცლად","დეტალურად","გაიგე მეტი"};
 }
